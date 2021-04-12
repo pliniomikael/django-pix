@@ -1,0 +1,20 @@
+{% load qr_code %}
+
+<h1>Codigo Bruto</h1>
+{{qrcode_pix}}
+<br>
+
+<br>
+
+<h1>QRCODE</h1>
+
+{% qr_from_text "COLAR O VALOR DO QRCODE AQUI" %}
+
+
+<hr>
+
+{% qr_from_text "qrcode_pix" %}
+
+
+
+<img src="data:image/png;base64, {{qrcode_pix}}">
