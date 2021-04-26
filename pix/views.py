@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import base64
+
 from pix.models import Pix
 from core.settings import (
     ID_PAYLOAD_FORMAT_INDICATOR, 
@@ -27,7 +29,6 @@ def tamanhotot(desc, value, value2, value3):
     tamanho = len(("%s%s%s") % (value, value2, value3))
     return ("%s%s%s%s%s") % (desc, tamanho, value, value2, value3)
 
-#errando aqui#
 def tex(desc, value):
     novo = tamanhot(ID_ADDITIONAL_DATA_FIELD_TEMPLATE_TXID, value)
     return ("%s") % (tamanhot(desc, novo))
@@ -75,13 +76,21 @@ def index(request, pk):
     tex(ID_ADDITIONAL_DATA_FIELD_TEMPLATE, pix.txid),
     )
 
-    qrcode_pix = ("%s%s") % (payload_pix, crc(payload_pix))
 
+    message = "Python is fun"
+
+    qrcode_pix = ("%s%s") % (payload_pix, crc(payload_pix))
+    message_bytes = qrcode_pix.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    base64_message = base64_bytes.decode('ascii')
+
+    print(qrcode_pix.strip())
 
     context = {
         "pix": pix,
         "payload_pix": payload_pix,
         "qrcode_pix": qrcode_pix,
+        "base64_message": base64_message,
 
     }
     return render(request, "index.html", context)

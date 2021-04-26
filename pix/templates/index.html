@@ -1,5 +1,3 @@
-{% load qr_code %}
-
 <h1>Codigo Bruto</h1>
 {{qrcode_pix}}
 <br>
@@ -8,13 +6,11 @@
 
 <h1>QRCODE</h1>
 
-{% qr_from_text "COLAR O VALOR DO QRCODE AQUI" %}
+
+<div id="test"></div>
+
+<img src="https://chart.googleapis.com/chart?cht=qr&chl={{qrcode_pix}}&chs=400x400&chld=L|0" class="qr-code img-thumbnail img-responsive" />
+</div>
 
 
 <hr>
-
-{% qr_from_text "qrcode_pix" %}
-
-
-
-<img src="data:image/png;base64, {{qrcode_pix}}">
